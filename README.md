@@ -35,4 +35,7 @@ Considero que el departamento no necesita tabla ya que no aporta más informaci�
   <h2>Modelo relacional</h2>
 <img src="https://user-images.githubusercontent.com/81094589/141324177-479487fe-56ef-4db4-9db5-cb4dd620acbb.png">
   La interrelación triple genera una nueva tabla que tiene como clave primaria las claves del resto de tablas.
-
+  
+  <h2>Creación de la DB</h2>
+Código de creación: 
+https://drive.google.com/file/d/1_ieqHbnwlNoHF6Cv-psoOiYTA-yOF5dn/view?usp=sharing 
