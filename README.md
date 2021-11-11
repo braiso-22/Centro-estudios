@@ -28,5 +28,7 @@ Permitir recuperar información básica:
   
   </ol>
   <h2>Modelo E/R</h2>
-  ![imagen_2021-11-11_161721](https://user-images.githubusercontent.com/81094589/141323030-e94a124b-054d-48a2-b7ab-3117174194fd.png)
+ <img src="https://user-images.githubusercontent.com/81094589/141323030-e94a124b-054d-48a2-b7ab-3117174194fd.png">
+Entiendo que se quiere saber qué profesor va a dar qué asignatura a qué alumno, y que cada asignatura puede ser impartida por varios profesores a la vez.
+Considero que el departamento no necesita tabla ya que no aporta más información importante además de su nombre por lo que queda como atributo del profesor.
 
