@@ -32,3 +32,7 @@ Permitir recuperar información básica:
 Entiendo que se quiere saber qué profesor va a dar qué asignatura a qué alumno, y que cada asignatura puede ser impartida por varios profesores a la vez.
 Considero que el departamento no necesita tabla ya que no aporta más información importante además de su nombre por lo que queda como atributo del profesor.
 
+  <h2>Modelo relacional</h2>
+<img src="https://user-images.githubusercontent.com/81094589/141324177-479487fe-56ef-4db4-9db5-cb4dd620acbb.png">
+  La interrelación triple genera una nueva tabla que tiene como clave primaria las claves del resto de tablas.
+
