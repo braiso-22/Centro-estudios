@@ -1,5 +1,6 @@
 # Centro_estudios
 Proyecto en el que se hace una base de datos para el centro y una aplicación que accede a los datos y los modifica
+https://docs.google.com/document/d/1DcK1GxR6Uccbla7L3Pi4PzJ1eG4iy5fiQ9_iqHW_fXY/edit?usp=sharing 
 
 <h2>Enunciado.</h2>
 Vamos a diseñar una aplicación que se conecta a una base de datos y que tenga las siguientes características: 
