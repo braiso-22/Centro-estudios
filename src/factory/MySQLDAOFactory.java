@@ -5,7 +5,6 @@
  */
 package factory;
 
-
 import dao.AlumnoDAO;
 import dao.AsignaturaDAO;
 import dao.DetalleClaseDAO;
@@ -13,14 +12,13 @@ import dao.ProfesorDAO;
 import java.sql.*;
 import pool.BasicConnectionPool;
 
-
 /**
  *
  * @author Brais
  */
 public class MySQLDAOFactory extends DAOFactory {
 
-    final static String url = "jdbc:mysql:///empresa";
+    final static String url = "jdbc:mysql:///centro_estudios";
     final static String user = "admin";
     final static String password = "abc123.";
     static BasicConnectionPool bcp;
@@ -57,25 +55,21 @@ public class MySQLDAOFactory extends DAOFactory {
 
     @Override
     public AlumnoDAO getAlumnoDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new AlumnoDAO();
     }
 
     @Override
     public ProfesorDAO getProfesorDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ProfesorDAO();
     }
 
     @Override
     public AsignaturaDAO getAsignaturaDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new AsignaturaDAO();
     }
 
     @Override
     public DetalleClaseDAO getDetalleClaseDAO() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new DetalleClaseDAO();
     }
-
-    
-
-    
 }
