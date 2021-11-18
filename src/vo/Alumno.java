@@ -117,4 +117,9 @@ public class Alumno {
         this.dni = dni;
     }
 
+    @Override
+    public String toString() {
+        return "dni:" + dni + ", nombre:" + nombre + ", apellidos:" + apellidos + ", curso:" + curso + ", fechaNacimiento:" + fechaNacimiento + "\n";
+    }
+
 }

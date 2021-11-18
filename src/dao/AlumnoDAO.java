@@ -12,8 +12,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import vo.Alumno;
 
 /**
  *
@@ -21,19 +25,19 @@ import java.util.List;
  */
 public class AlumnoDAO implements Dao {
 
-    public static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYCURSO = 4, GETBYNACIMIENTO = 5, GETBYASIGNATURA = 6; //selects
-    public static int INSERTBYFILE = 0;//inserts
-    public static int UPDATEBYASIGNATURA = 0, GETBYPROFESOR = 1;
+    public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYCURSO = 4, GETBYNACIMIENTO = 5, GETBYASIGNATURA = 6; //selects
+    public final static int INSERTBYFILE = 0;//inserts
+    public final static int UPDATEBYASIGNATURA = 0, GETBYPROFESOR = 1;
 
     public AlumnoDAO() {
-        querys.add("select * from alumno"); //0
-        querys.add("select * from alumno where dni = ?"); //1
-        querys.add("select * from alumno where nombre = ?"); //2
-        querys.add("select * from alumno where apellido = ?"); //3
-        querys.add("select * from alumno where curso = ?"); //4
-        querys.add("select * from alumno where fecha_nacimiento = ?"); //5
-        querys.add("select * from alumno_con_asignatura "+"where asi.nombre=?;");//6
-        querys.add("select * from alumno_con_profesor "+"where p.nombre=?;");//7
+        querys.add("select * from alumno;"); //0
+        querys.add("select * from alumno where dni = ?;"); //1
+        querys.add("select * from alumno where nombre = ?;"); //2
+        querys.add("select * from alumno where apellidos like ?;"); //3
+        querys.add("select * from alumno where curso = ?;"); //4
+        querys.add("select * from alumno where year(fecha_nacimiento)= ?;"); //5
+        querys.add("select * from alumno_con_asignatura " + "where asi.nombre=?;");//6
+        querys.add("select * from alumno_con_profesor " + "where p.nombre=?;");//7
 
         inserts.add("insert into alumno(dni, nombre, apellidos, curso, fecha_nacimiento) values(?, ?, ?, ?, ?);");//0
 
@@ -46,19 +50,53 @@ public class AlumnoDAO implements Dao {
     }
 
     @Override
-    public List<AlumnoDAO> get(int query, String id, Connection conn) {
+    public List<Alumno> get(int queryInt, String id, Connection conn) {
+        List<Alumno> lista = new ArrayList<>();
+        try {
+            String query = querys.get(queryInt);
 
-        return new ArrayList<>();
+            PreparedStatement ps = conn.prepareStatement(query);
+            switch (queryInt) {
+                case GETALL:
+                    break;
+                case GETBYDNI:
+                case GETBYNOMBRE:
+                case GETBYAPELLIDO:
+                case GETBYCURSO:
+                    ps.setString(1, id);
+                    break;
+                case GETBYNACIMIENTO:
+                    int year=Integer.valueOf(id);
+                    ps.setInt(1, year);
+                    break;
+
+                default:
+                    break;
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lista.add(formarAlumno(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lista;
     }
 
-    @Override
-    public List getByProc(int query, String id, Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    private Alumno formarAlumno(ResultSet rs) {
+        Alumno al = null;
+        try {
+            String dni = rs.getString(1);
+            String nombre = rs.getString(2);
+            String apellidos = rs.getString(3);
+            String curso = rs.getString(4);
+            LocalDate fechaNacimiento = LocalDate.parse(rs.getDate(5).toString());
+            al = new Alumno(dni, nombre, apellidos, curso, fechaNacimiento);
 
-    @Override
-    public void updateView(Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        } catch (SQLException e) {
+            System.out.println("Error al formar el alumno " + e.getMessage());
+        }
+        return al;
     }
 
     @Override
@@ -102,7 +140,18 @@ public class AlumnoDAO implements Dao {
     }
 
     @Override
-    public void add(Object elemento, Connection conn) {
+    public void add(Object elemento, Connection conn
+    ) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List getByProc(int query, String id, Connection conn) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateView(Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
