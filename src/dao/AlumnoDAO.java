@@ -38,6 +38,7 @@ public class AlumnoDAO implements Dao {
         querys.add("select * from alumno where year(fecha_nacimiento)= ?;"); //5
         querys.add("select * from alumno_con_asignatura " + "where asi.nombre=?;");//6
         querys.add("select * from alumno_con_profesor " + "where p.nombre=?;");//7
+        querys.add("select * from alumno where fecha_nacimiento < DATE_SUB(now(),interval 18 YEAR);");// 8 alumnos mayores de edad
 
         inserts.add("insert into alumno(dni, nombre, apellidos, curso, fecha_nacimiento) values(?, ?, ?, ?, ?);");//0
 
