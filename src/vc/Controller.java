@@ -48,6 +48,9 @@ public class Controller {
                         opcion2 = v.menuAlumno();
                         output += alumno(opcion2, conn);
                         break;
+                    case 2:
+                        opcion2 = v.menuProfesor();
+                        output += profesor(opcion2, conn);
                     case 0:
                         v.showMessage("Saliendo...");
                     default:;
@@ -120,7 +123,7 @@ public class Controller {
             case 9:
                 id = v.showMessageString("Introduce el archivo:");
                 alumnoDAO.insertUsingFile(id, conn);
-                
+
             case 0:
                 break;
             default:
@@ -129,4 +132,16 @@ public class Controller {
         return output;
     }
 
+    public static String profesor(int opcion, Connection conn) {
+        String output = "";
+        String id;
+        switch (opcion) {
+            case 1:
+
+                break;
+            default:
+
+        }
+        return output;
+    }
 }

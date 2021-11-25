@@ -29,7 +29,7 @@ public class View {
 
         System.out.println("Selecciona una opcion:");
         System.out.println("1.- Alumnos");
-
+        System.out.println("2.- Profesores");
         System.out.println("0.- Salir");
 
         int opcion = teclado.nextInt();
@@ -53,5 +53,21 @@ public class View {
         teclado.nextLine();
         return opcion;
     }
-    
+
+    public int menuProfesor() {
+        System.out.println("Selecciona una opcion:");
+        System.out.println("1.- Ver todos los profesores");
+        System.out.println("2.- Buscar profesor por DNI");
+        System.out.println("3.- Ver profesores buscando por nombre");
+        System.out.println("4.- Ver profesores buscando por apellido");
+        System.out.println("5.- Ver profesores buscando por departamento");
+        System.out.println("6.- Ver profesores de sueldo");
+        System.out.println("7.- Ver profesores por asignatura");
+        System.out.println("8.- Ver profesores por alumno");
+        System.out.println("9.- Insertar profesores por archivo");
+        System.out.println("0.- Volver");
+        int opcion = teclado.nextInt();
+        teclado.nextLine();
+        return opcion;
+    }
 }
