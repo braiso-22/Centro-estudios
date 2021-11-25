@@ -23,7 +23,7 @@ public class AsignaturaDAO implements Dao{
    
 
     @Override
-    public void insertUsingFile(File file, Connection conn) {
+    public void insertUsingFile(String file, Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

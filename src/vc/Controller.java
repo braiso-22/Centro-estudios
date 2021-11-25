@@ -105,6 +105,22 @@ public class Controller {
                     output += al.toString();
                 }
                 break;
+            case 7:
+                id = v.showMessageString("Introduce el nombre de asignatura:");
+                alumnos = alumnoDAO.get(AlumnoDAO.GETBYASIGNATURA, id, conn);
+                for (Alumno al : alumnos) {
+                    output += al.toString();
+                }
+            case 8:
+                id = v.showMessageString("Introduce el nombre del profesor:");
+                alumnos = alumnoDAO.get(AlumnoDAO.GETBYPROFESOR, id, conn);
+                for (Alumno al : alumnos) {
+                    output += al.toString();
+                }
+            case 9:
+                id = v.showMessageString("Introduce el archivo:");
+                alumnoDAO.insertUsingFile(id, conn);
+                
             case 0:
                 break;
             default:

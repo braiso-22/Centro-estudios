@@ -45,10 +45,13 @@ public class View {
         System.out.println("4.- Ver alumnos buscando por apellido");
         System.out.println("5.- Ver alumnos buscando por curso");
         System.out.println("6.- Ver alumnos por año de nacimiento");
+        System.out.println("7.- Ver alumnos por asgnatura");
+        System.out.println("8.- Ver alumnos por profesor");
+        System.out.println("9.- Insertar alumnos por archivo");
         System.out.println("0.- Volver");
         int opcion = teclado.nextInt();
         teclado.nextLine();
         return opcion;
     }
-
+    
 }

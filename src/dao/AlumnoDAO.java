@@ -25,9 +25,8 @@ import vo.Alumno;
  */
 public class AlumnoDAO implements Dao {
 
-    public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYCURSO = 4, GETBYNACIMIENTO = 5, GETBYASIGNATURA = 6; //selects
+    public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYCURSO = 4, GETBYNACIMIENTO = 5, GETBYASIGNATURA = 6, GETBYPROFESOR = 7; //selects
     public final static int INSERTBYFILE = 0;//inserts
-    public final static int UPDATEBYASIGNATURA = 0, GETBYPROFESOR = 1;
 
     public AlumnoDAO() {
         querys.add("select * from alumno;"); //0
@@ -36,18 +35,12 @@ public class AlumnoDAO implements Dao {
         querys.add("select * from alumno where apellidos like ?;"); //3
         querys.add("select * from alumno where curso = ?;"); //4
         querys.add("select * from alumno where year(fecha_nacimiento)= ?;"); //5
-        querys.add("select * from alumno_con_asignatura " + "where asi.nombre=?;");//6
-        querys.add("select * from alumno_con_profesor " + "where p.nombre=?;");//7
+        querys.add("select dni, nombre, apellidos, curso, fecha_nacimiento from alumno_con_asignatura " + "where asignatura=?;");//6
+        querys.add("select dni, nombre, apellidos, curso, fecha_nacimiento from alumno_con_profesor " + "where profesor=?;");//7
         querys.add("select * from alumno where fecha_nacimiento < DATE_SUB(now(),interval 18 YEAR);");// 8 alumnos mayores de edad
 
         inserts.add("insert into alumno(dni, nombre, apellidos, curso, fecha_nacimiento) values(?, ?, ?, ?, ?);");//0
 
-        views.add("create or replace view alumno_con_asignatura as select a.dni, a.nombre, a.apellidos, a.curso, a.fecha_nacimiento "
-                + "from alumno as a inner join detalle_clase as dc on a.dni = dc.alumno "
-                + "inner join asignatura as asi on dc.asignatura = asi.codigo;");//0
-        views.add("create or replace view alumno_con_profesor as select a.dni, a.nombre, a.apellidos, a.curso, a.fecha_nacimiento "
-                + "from alumno as a inner join detalle_clase as dc on a.dni = dc.alumno "
-                + "inner join profesor as p on dc.profesor = p.dni;");//1
     }
 
     @Override
@@ -64,13 +57,14 @@ public class AlumnoDAO implements Dao {
                 case GETBYNOMBRE:
                 case GETBYAPELLIDO:
                 case GETBYCURSO:
+                case GETBYASIGNATURA:
+                case GETBYPROFESOR:
                     ps.setString(1, id);
                     break;
                 case GETBYNACIMIENTO:
-                    int year=Integer.valueOf(id);
+                    int year = Integer.valueOf(id);
                     ps.setInt(1, year);
                     break;
-
                 default:
                     break;
             }
@@ -101,8 +95,9 @@ public class AlumnoDAO implements Dao {
     }
 
     @Override
-    public void insertUsingFile(File f, Connection conn) {
+    public void insertUsingFile(String file, Connection conn) {
         File csv;
+        //csv = new File(file);
         csv = new File("src/batch/alumnos.csv");
         String cadena;
 
@@ -116,11 +111,6 @@ public class AlumnoDAO implements Dao {
                 int i = 1;
                 for (String a : cadenas) {
                     switch (i) {
-                        case 1:
-                        case 4:
-                        case 8:
-                            ps.setInt(i, Integer.parseInt(a));
-                            break;
                         case 5:
                             ps.setDate(i, Date.valueOf(a));
                             break;

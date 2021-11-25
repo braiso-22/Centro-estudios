@@ -18,7 +18,6 @@ import java.util.List;
 public interface Dao<T> {
 
     ArrayList<String> querys = new ArrayList<>();
-    ArrayList<String> views = new ArrayList<>();
     ArrayList<String> inserts = new ArrayList<>();
     ArrayList<String> procedures = new ArrayList<>();
 
@@ -48,7 +47,7 @@ public interface Dao<T> {
      * @param file
      * @param conn
      */
-    void insertUsingFile(File file, Connection conn);
+    void insertUsingFile(String file, Connection conn);
 
     /**
      * para insertar uno por uno
