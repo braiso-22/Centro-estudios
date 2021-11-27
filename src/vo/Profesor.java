@@ -119,4 +119,9 @@ public class Profesor {
         this.dni = dni;
     }
 
+    @Override
+    public String toString() {
+        return "dni:" + dni + ", nombre:" + nombre + ", apellidos:" + apellidos + ", departamento=" + departamento + ", sueldo=" + sueldo ;
+    }
+
 }

@@ -6,10 +6,12 @@
 package vc;
 
 import dao.AlumnoDAO;
+import dao.ProfesorDAO;
 import factory.DAOFactory;
 import java.util.List;
 import vo.Alumno;
 import java.sql.Connection;
+import vo.Profesor;
 
 /**
  *
@@ -18,8 +20,10 @@ import java.sql.Connection;
 public class Controller {
 
     static List<Alumno> alumnos;
+    static List<Profesor> profesores;
     static DAOFactory mySQLFactory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
     static AlumnoDAO alumnoDAO = mySQLFactory.getAlumnoDAO();
+    static ProfesorDAO profesorDAO = mySQLFactory.getProfesorDAO();
     static View v = new View();
 
     /**
@@ -51,6 +55,7 @@ public class Controller {
                     case 2:
                         opcion2 = v.menuProfesor();
                         output += profesor(opcion2, conn);
+                        break;
                     case 0:
                         v.showMessage("Saliendo...");
                     default:;
@@ -137,8 +142,21 @@ public class Controller {
         String id;
         switch (opcion) {
             case 1:
-
+                profesores = profesorDAO.get(ProfesorDAO.GETALL, "", conn);
+                for (Profesor prof : profesores) {
+                    output += prof.toString();
+                }
+                
                 break;
+            case 2:
+                id = v.showMessageString("Introduce el DNI");
+                profesores= profesorDAO.get(ProfesorDAO.GETBYDNI, id, conn);
+                for (Profesor prof : profesores) {
+                    output += prof.toString();
+                }
+                break;
+            case 9:
+                profesorDAO.insertUsingFile("", conn);
             default:
 
         }

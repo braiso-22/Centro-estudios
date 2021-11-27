@@ -5,9 +5,7 @@
  */
 package dao;
 
-import java.io.File;
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +14,6 @@ import java.util.List;
  * @param <T>
  */
 public interface Dao<T> {
-
-    ArrayList<String> querys = new ArrayList<>();
-    ArrayList<String> inserts = new ArrayList<>();
-    ArrayList<String> procedures = new ArrayList<>();
 
     /**
      * para hacer selects simples en la misma tabla

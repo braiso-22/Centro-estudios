@@ -25,6 +25,10 @@ import vo.Alumno;
  */
 public class AlumnoDAO implements Dao {
 
+    ArrayList<String> querys = new ArrayList<>();
+    ArrayList<String> inserts = new ArrayList<>();
+    ArrayList<String> procedures = new ArrayList<>();
+
     public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYCURSO = 4, GETBYNACIMIENTO = 5, GETBYASIGNATURA = 6, GETBYPROFESOR = 7; //selects
     public final static int INSERTBYFILE = 0;//inserts
 
