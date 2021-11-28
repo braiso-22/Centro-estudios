@@ -13,14 +13,12 @@ import java.util.List;
  *
  * @author brais.fernandezvazqu
  */
-public class DetalleClaseDAO implements Dao{
+public class DetalleClaseDAO implements Dao {
 
     @Override
     public List get(int query, String id, Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    
 
     @Override
     public void insertUsingFile(String file, Connection conn) {
@@ -31,14 +29,4 @@ public class DetalleClaseDAO implements Dao{
     public void add(Object elemento, Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
-
-    @Override
-    public List getByProc(int query, String id, Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
-    
 }

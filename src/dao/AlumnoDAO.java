@@ -26,7 +26,6 @@ import vo.Alumno;
 public class AlumnoDAO implements Dao {
 
     ArrayList<String> querys = new ArrayList<>();
-    ArrayList<String> procedures = new ArrayList<>();
 
     public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYCURSO = 4, GETBYNACIMIENTO = 5, GETBYASIGNATURA = 6, GETBYPROFESOR = 7; //selects
     public final static int INSERTBYFILE = 0;//inserts
@@ -146,11 +145,9 @@ public class AlumnoDAO implements Dao {
             ps.executeUpdate();
         } catch (SQLException sqlE) {
             System.out.println(sqlE.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    @Override
-    public List getByProc(int query, String id, Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

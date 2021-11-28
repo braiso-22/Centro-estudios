@@ -6,12 +6,14 @@
 package vc;
 
 import dao.AlumnoDAO;
+import dao.AsignaturaDAO;
 import dao.ProfesorDAO;
 import factory.DAOFactory;
 import java.util.List;
 import vo.Alumno;
 import java.sql.Connection;
 import java.time.LocalDate;
+import vo.Asignatura;
 import vo.Profesor;
 
 /**
@@ -22,9 +24,11 @@ public class Controller {
 
     static List<Alumno> alumnos;
     static List<Profesor> profesores;
+    static List<Asignatura> asignaturas;
     static DAOFactory mySQLFactory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
     static AlumnoDAO alumnoDAO = mySQLFactory.getAlumnoDAO();
     static ProfesorDAO profesorDAO = mySQLFactory.getProfesorDAO();
+    static AsignaturaDAO asignaturaDAO = mySQLFactory.getAsignaturaDAO();
     static View v = new View();
 
     /**
@@ -57,10 +61,11 @@ public class Controller {
                         opcion2 = v.menuProfesor();
                         output += profesor(opcion2, conn);
                         break;
-                    case 3: 
+                    case 3:
                         opcion2 = v.menuAsignatura();
+                        output += asignatura(opcion2, conn);
                         break;
-                        
+
                     case 0:
                         v.showMessage("Saliendo...");
                     default:;
@@ -108,7 +113,7 @@ public class Controller {
                 output = proccesAlumnos("Introduce el nombre de asignatura:", AlumnoDAO.GETBYASIGNATURA, conn);
                 break;
             case 8:
-                output = proccesAlumnos("Introduce el nombre del profesor:", AlumnoDAO.GETBYPROFESOR, conn);
+                output = proccesAlumnos("Introduce el DNI del profesor:", AlumnoDAO.GETBYPROFESOR, conn);
                 break;
             case 9:
                 id = v.showMessageString("Introduce el archivo:");
@@ -172,8 +177,8 @@ public class Controller {
                 id = v.showMessageString("Introduce los apellidos");
                 id = "%" + id + "%";
                 profesores = profesorDAO.get(ProfesorDAO.GETBYAPELLIDO, id, conn);
-                for (Alumno al : alumnos) {
-                    output += al.toString();
+                for (Profesor prof : profesores) {
+                    output += prof.toString();
                 }
                 break;
             case 5:
@@ -183,9 +188,14 @@ public class Controller {
                 output = processProfesores("Introduce el sueldo", ProfesorDAO.GETBYSUELDO, conn);
                 break;
             case 7:
-
+                output = processProfesores("Introduce la asignatura", ProfesorDAO.GETBYASIGNATURA, conn);
+                break;
+            case 8:
+                output = processProfesores("Introduce el DNI del alumno", ProfesorDAO.GETBYALUMNO, conn);
+                break;
             case 9:
-                profesorDAO.insertUsingFile("", conn);
+                id = v.showMessageString("Introduce el archivo");
+                profesorDAO.insertUsingFile(id, conn);
                 break;
             default:
 
@@ -200,6 +210,53 @@ public class Controller {
         profesores = profesorDAO.get(num, id, conn);
         for (Profesor prof : profesores) {
             output += prof.toString();
+        }
+        return output;
+    }
+
+    private static String asignatura(int opcion, Connection conn) {
+        String output = "";
+        String id;
+        switch (opcion) {
+            case 1:
+                asignaturas = asignaturaDAO.get(AsignaturaDAO.GETALL, "", conn);
+                for (Asignatura as : asignaturas) {
+                    output += as;
+                }
+                break;
+            case 2:
+                proccesAsignatura("Escribe el codigo", AsignaturaDAO.GETBYCODIGO, conn);
+                break;
+            case 3:
+                proccesAsignatura("Escribe el nombre", AsignaturaDAO.GETBYNOMBRE, conn);
+                break;
+            case 4:
+                proccesAsignatura("Escribe el dni del alumno", AsignaturaDAO.GETBYALUMNO, conn);
+                break;
+            case 5:
+                proccesAsignatura("Escribe el dni del profesor", AsignaturaDAO.GETBYPROFESOR, conn);
+                break;
+            case 6:
+                id = v.showMessageString("Introduce el archivo");
+                asignaturaDAO.insertUsingFile(id, conn);
+                break;
+            case 7:
+                String codigo = v.showMessageString("introduce el codigo");
+                String nombre = v.showMessageString("Introduce el nombre");
+                asignaturaDAO.add(new Asignatura(codigo, nombre), conn);
+                break;
+            default:
+                break;
+        }
+        return output;
+    }
+
+    private static String proccesAsignatura(String mensaje, int num, Connection conn) {
+        String id = "", output = "";
+        id = v.showMessageString(mensaje);
+        asignaturas = asignaturaDAO.get(num, id, conn);
+        for (Asignatura asig : asignaturas) {
+            output += asig.toString();
         }
         return output;
     }

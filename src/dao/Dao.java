@@ -26,16 +26,6 @@ public interface Dao<T> {
     List<T> get(int query, String id, Connection conn);
 
     /**
-     * para usar procedimientos almacenados
-     *
-     * @param query
-     * @param id
-     * @param conn
-     * @return
-     */
-    List<T> getByProc(int query, String id, Connection conn);
-
-    /**
      * para insertar desde un archivo
      *
      * @param file
@@ -50,13 +40,4 @@ public interface Dao<T> {
      * @param conn
      */
     void add(T elemento, Connection conn);
-
-    /**
-     * actualizar la vista de SQL metodo que se usa cada vez que se inserta
-     * datos
-     *
-     * @param conn
-     */
-    
-
 }

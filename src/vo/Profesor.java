@@ -121,7 +121,7 @@ public class Profesor {
 
     @Override
     public String toString() {
-        return "dni:" + dni + ", nombre:" + nombre + ", apellidos:" + apellidos + ", departamento=" + departamento + ", sueldo=" + sueldo ;
+        return "dni:" + dni + ", nombre:" + nombre + ", apellidos:" + apellidos + ", departamento=" + departamento + ", sueldo=" + sueldo+"\n";
     }
 
 }

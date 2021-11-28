@@ -56,4 +56,10 @@ public class Asignatura {
         this.codigo = codigo;
     }
 
+    @Override
+    public String toString() {
+        return "codigo:" + codigo + ", nombre:" + nombre +"\n";
+    }
+
+    
 }
