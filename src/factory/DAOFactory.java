@@ -39,7 +39,7 @@ public abstract class DAOFactory {
             case MYSQL:
                 return new MySQLDAOFactory();
 
-          /*case SQLServer:
+            /*case SQLServer:
                 return new SQLServerDAOFactory();
              */
             default:

@@ -47,8 +47,8 @@ public class DetalleClaseDAO implements Dao {
     @Override
     public void insertUsingFile(String file, Connection conn) {
         File csv;
-        //csv = new File(file);
-        csv = new File("src/batch/detalleClases.csv");
+        csv = new File(file);
+        //csv = new File("src/batch/detalleClases.csv");
         String cadena;
 
         try {
@@ -73,7 +73,7 @@ public class DetalleClaseDAO implements Dao {
         } catch (IOException ex) {
             System.err.printf("Error: %s\n", ex.getMessage());
         } catch (SQLException sqlE) {
-            System.out.println(sqlE.getMessage());
+            System.out.println("No se pudo añadir la nueva matricula:"+sqlE.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

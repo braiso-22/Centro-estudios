@@ -32,6 +32,7 @@ public class View {
         System.out.println("2.- Profesores");
         System.out.println("3.- Asignaturas");
         System.out.println("4.- Matriculas");
+        System.out.println("5.- Cargar datos antiguos");
         System.out.println("0.- Salir");
 
         return leerInt();
@@ -48,7 +49,7 @@ public class View {
         System.out.println("07.- Ver alumnos por asignatura");
         System.out.println("08.- Ver alumnos por profesor");
         System.out.println("09.- Insertar alumnos por archivo");
-        System.out.println("10.- Insetar alumno a mano");
+        System.out.println("10.- Insertar alumno a mano");
         System.out.println("0.- Volver");
         return leerInt();
     }
@@ -98,7 +99,7 @@ public class View {
             teclado.nextLine();
             return opcion;
         } catch (Exception e) {
-            System.out.println("Error " + e.getMessage());
+            System.out.println("Dato no valido "+e.getMessage());
             teclado = new Scanner(System.in);
         }
         return -1;

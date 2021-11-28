@@ -95,8 +95,8 @@ public class ProfesorDAO implements Dao {
     @Override
     public void insertUsingFile(String file, Connection conn) {
         File csv;
-        //csv = new File(file);
-        csv = new File("src/batch/profesores.csv");
+        csv = new File(file);
+        //csv = new File("src/batch/profesores.csv");
         String cadena;
 
         try {
@@ -120,7 +120,9 @@ public class ProfesorDAO implements Dao {
             ps.executeBatch();
         } catch (IOException ex) {
             System.err.printf("Error: %s\n", ex.getMessage());
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("No se pudo añadir la asignatura:"+e.getMessage());
+        }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }

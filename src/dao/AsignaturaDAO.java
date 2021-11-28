@@ -61,8 +61,8 @@ public class AsignaturaDAO implements Dao {
     @Override
     public void insertUsingFile(String file, Connection conn) {
         File csv;
-        //csv = new File(file);
-        csv = new File("src/batch/asignaturas.csv");
+        csv = new File(file);
+        //csv = new File("src/batch/asignaturas.csv");
         String cadena;
 
         try {
@@ -87,7 +87,7 @@ public class AsignaturaDAO implements Dao {
         } catch (IOException ex) {
             System.err.printf("Error: %s\n", ex.getMessage());
         } catch (SQLException sqlE) {
-            System.out.println(sqlE.getMessage());
+            System.out.println("No se pudo añadir el profesor:"+sqlE.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

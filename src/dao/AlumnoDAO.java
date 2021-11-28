@@ -69,6 +69,7 @@ public class AlumnoDAO implements Dao {
                     break;
             }
             ResultSet rs = ps.executeQuery();
+            
             while (rs.next()) {
                 lista.add(formarAlumno(rs));
             }
@@ -97,8 +98,8 @@ public class AlumnoDAO implements Dao {
     @Override
     public void insertUsingFile(String file, Connection conn) {
         File csv;
-        //csv = new File(file);
-        csv = new File("src/batch/alumnos.csv");
+        csv = new File(file);
+        //csv = new File("src/batch/alumnos.csv");
         String cadena;
 
         try {
@@ -126,7 +127,7 @@ public class AlumnoDAO implements Dao {
         } catch (IOException ex) {
             System.err.printf("Error: %s\n", ex.getMessage());
         } catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+            System.out.println("No se pudo añadir el alumno:"+sqle.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

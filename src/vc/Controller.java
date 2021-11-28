@@ -34,6 +34,7 @@ public class Controller {
     static ProfesorDAO profesorDAO = mySQLFactory.getProfesorDAO();
     static AsignaturaDAO asignaturaDAO = mySQLFactory.getAsignaturaDAO();
     static DetalleClaseDAO detalleClaseDAO = mySQLFactory.getDetalleClaseDAO();
+
     static View v = new View();
 
     /**
@@ -46,19 +47,23 @@ public class Controller {
         int opcion = -1;
         Connection conn = null;
         do {
-            
+
             int opcion2 = -1;
             String output;
             opcion = v.menuTablas();
             do {
 
                 output = new String("");
+
+                //se inicia una nueva conexion 
                 try {
                     conn = mySQLFactory.getConnection();
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    v.showMessage(e.getMessage());
                 }
                 try {
+
+                    //cada opcion del menu 1 llama a su menu menos en el caso 5
                     switch (opcion) {
                         case 1:
                             opcion2 = v.menuAlumno();
@@ -76,9 +81,18 @@ public class Controller {
                             opcion2 = v.menuMatriculas();
                             output += matricula(opcion2, conn);
                             break;
-
+                        case 5:
+                            alumnoDAO.insertUsingFile("src/batch/alumnos.csv", conn);
+                            profesorDAO.insertUsingFile("src/batch/profesores.csv", conn);
+                            asignaturaDAO.insertUsingFile("src/batch/asignaturas.csv", conn);
+                            detalleClaseDAO.insertUsingFile("src/batch/detalleClases.csv", conn);
+                            opcion2 = 0;
+                            break;
                         case 0:
                             v.showMessage("Saliendo...");
+                            break;
+                        case -1:
+                            opcion2 = 0;
                             break;
                         default:
                             v.showMessage("opcion no valida");
@@ -87,13 +101,14 @@ public class Controller {
 
                     }
                 } catch (Exception e) {
-                    System.out.println("Error " + e.getMessage());
+                    v.showMessage("Error " + e.getMessage());
                     opcion2 = 0;
                 }
+                //Se libera la conexion
                 mySQLFactory.releaseConnection(conn);
                 v.showMessage(output);
             } while (opcion2 != 0 && opcion != 0);
-            
+
         } while (opcion != 0);
 
     }
@@ -155,7 +170,7 @@ public class Controller {
                     fecha = LocalDate.parse(v.showMessageString("Introduce la fecha de nacimiento YYYY-MM-DD"));
                     alumnoDAO.add(new Alumno(dni, nombre, apellido, curso, fecha), conn);
                 } catch (Exception e) {
-                    System.out.println("No se pudo añadir el alumno" + e.getMessage());
+                    v.showMessage("No se pudo añadir el alumno" + e.getMessage());
                 }
                 break;
             case 0:
@@ -175,7 +190,7 @@ public class Controller {
                 output += al.toString();
             }
         } catch (Exception e) {
-            System.out.println("Error " + e.getMessage());
+            v.showMessage("Error " + e.getMessage());
         }
 
         return output;
@@ -213,7 +228,7 @@ public class Controller {
                 try {
                 output = processProfesores("Introduce el sueldo", ProfesorDAO.GETBYSUELDO, conn);
             } catch (Exception e) {
-                System.out.println("Error " + e.getMessage());
+                v.showMessage("Error " + e.getMessage());
             }
             break;
             case 7:
@@ -242,9 +257,9 @@ public class Controller {
                     sueldo = Float.valueOf(v.showMessageString("Introduce el sueldo"));
                     profesorDAO.add(new Profesor(dni, nombre, apellido, departamento, sueldo), conn);
                 } catch (NumberFormatException e) {
-                    System.out.println("No se pudo añadir el alumno" + e.getMessage());
+                    v.showMessage("No se pudo añadir el alumno" + e.getMessage());
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    v.showMessage(e.getMessage());
                 }
 
             default:
