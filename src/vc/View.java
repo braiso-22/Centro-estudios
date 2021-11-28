@@ -30,6 +30,7 @@ public class View {
         System.out.println("Selecciona una opcion:");
         System.out.println("1.- Alumnos");
         System.out.println("2.- Profesores");
+        System.out.println("3.- Asignaturas");
         System.out.println("0.- Salir");
 
         int opcion = teclado.nextInt();
@@ -57,22 +58,36 @@ public class View {
 
     public int menuProfesor() {
         System.out.println("Selecciona una opcion:");
-        System.out.println("1.- Ver todos los profesores");
-        System.out.println("2.- Buscar profesor por DNI");
-        System.out.println("3.- Ver profesores buscando por nombre");
-        System.out.println("4.- Ver profesores buscando por apellido");
-        System.out.println("5.- Ver profesores buscando por departamento");
-        System.out.println("6.- Ver profesores de sueldo");
-        System.out.println("7.- Ver profesores por asignatura");
-        System.out.println("8.- Ver profesores por alumno");
-        System.out.println("9.- Insertar profesores por archivo");
+        System.out.println("01.- Ver todos los profesores");
+        System.out.println("02.- Buscar profesor por DNI");
+        System.out.println("03.- Ver profesores buscando por nombre");
+        System.out.println("04.- Ver profesores buscando por apellido");
+        System.out.println("05.- Ver profesores buscando por departamento");
+        System.out.println("06.- Ver profesores buscando por sueldo"
+                + " mayor al introducido");
+        System.out.println("07.- Ver profesores buscando por asignatura");
+        System.out.println("08.- Ver profesores por alumno");
+        System.out.println("09.- Insertar profesores por archivo");
+        System.out.println("10.-Insertar profesores a mano");
+        System.out.println("0.- Volver");
+        int opcion = teclado.nextInt();
+        teclado.nextLine();
+        return opcion;
+    }
+
+    public int menuAsignatura() {
+        System.out.println("Selecciona una opcion:");
+        System.out.println("1.- Ver todas las asignaturas");
+        System.out.println("2.- Buscar asignaturas por codigo");
+        System.out.println("3.- Buscar asignaturas por nombre");
+        System.out.println("4.- Ver asignaturas buscando por alumno");
+        System.out.println("5.- Ver asignaturas buscando por profesor");
+        System.out.println("6.- Insertar asignaturas por archivo");
+        System.out.println("7.- Insertar asignaturas a mano");
         System.out.println("0.- Volver");
         int opcion = teclado.nextInt();
         teclado.nextLine();
         return opcion;
     }
     
-    public int menuAsignatura(){
-        System.out.println("Selecciona una opcion:");
-    }
 }
