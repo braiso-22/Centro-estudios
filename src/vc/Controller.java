@@ -7,6 +7,7 @@ package vc;
 
 import dao.AlumnoDAO;
 import dao.AsignaturaDAO;
+import dao.DetalleClaseDAO;
 import dao.ProfesorDAO;
 import factory.DAOFactory;
 import java.util.List;
@@ -14,6 +15,7 @@ import vo.Alumno;
 import java.sql.Connection;
 import java.time.LocalDate;
 import vo.Asignatura;
+import vo.DetalleClase;
 import vo.Profesor;
 
 /**
@@ -25,10 +27,13 @@ public class Controller {
     static List<Alumno> alumnos;
     static List<Profesor> profesores;
     static List<Asignatura> asignaturas;
+    static List<DetalleClase> matriculas;
+
     static DAOFactory mySQLFactory = DAOFactory.getDAOFactory(DAOFactory.MYSQL);
     static AlumnoDAO alumnoDAO = mySQLFactory.getAlumnoDAO();
     static ProfesorDAO profesorDAO = mySQLFactory.getProfesorDAO();
     static AsignaturaDAO asignaturaDAO = mySQLFactory.getAsignaturaDAO();
+    static DetalleClaseDAO detalleClaseDAO = mySQLFactory.getDetalleClaseDAO();
     static View v = new View();
 
     /**
@@ -41,10 +46,11 @@ public class Controller {
         int opcion = -1;
         Connection conn = null;
         do {
-            opcion = v.menuTablas();
             int opcion2 = -1;
             String output;
+            opcion = v.menuTablas();
             do {
+
                 output = new String();
                 try {
                     conn = mySQLFactory.getConnection();
@@ -52,7 +58,6 @@ public class Controller {
                     System.out.println(e.getMessage());
                 }
                 switch (opcion) {
-
                     case 1:
                         opcion2 = v.menuAlumno();
                         output += alumno(opcion2, conn);
@@ -65,15 +70,23 @@ public class Controller {
                         opcion2 = v.menuAsignatura();
                         output += asignatura(opcion2, conn);
                         break;
+                    case 4:
+                        opcion2 = v.menuMatriculas();
+                        output += matricula(opcion2, conn);
+                        break;
 
                     case 0:
                         v.showMessage("Saliendo...");
-                    default:;
+                        break;
+                    default:
+                        v.showMessage("opcion no valida");
+                        opcion2=0;
+                        break;
 
                 }
                 mySQLFactory.releaseConnection(conn);
                 v.showMessage(output);
-            } while (opcion2 != 0 && opcion != 0);
+            } while (opcion2 != 0 && opcion!=0);
         } while (opcion != 0);
 
     }
@@ -260,4 +273,31 @@ public class Controller {
         }
         return output;
     }
+
+    private static String matricula(int opcion, Connection conn) {
+        String output = "";
+        String id;
+        switch (opcion) {
+            case 1:
+                matriculas = detalleClaseDAO.get(DetalleClaseDAO.GETALL, "", conn);
+                for (DetalleClase matri : matriculas) {
+                    output += matri;
+                }
+                break;
+            case 2:
+                id = v.showMessageString("Introduce el archivo");
+                detalleClaseDAO.insertUsingFile(id, conn);
+                break;
+            case 3:
+                String alumno = v.showMessageString("Introduce el dni del alumno");
+                String profesor = v.showMessageString("Introduce el dni del profesor");
+                String asignatura = v.showMessageString("Introduce el codigo de asignatura");
+                detalleClaseDAO.add(new DetalleClase(alumno, profesor, asignatura), conn);
+                break;
+            default:
+                break;
+        }
+        return output;
+    }
+
 }

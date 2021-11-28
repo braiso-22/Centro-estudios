@@ -31,6 +31,7 @@ public class View {
         System.out.println("1.- Alumnos");
         System.out.println("2.- Profesores");
         System.out.println("3.- Asignaturas");
+        System.out.println("4.- Matriculas");
         System.out.println("0.- Salir");
 
         int opcion = teclado.nextInt();
@@ -89,5 +90,16 @@ public class View {
         teclado.nextLine();
         return opcion;
     }
-    
+
+    public int menuMatriculas() {
+        System.out.println("Selecciona una opcion:");
+        System.out.println("1.- Ver todas las matriculas");
+        System.out.println("2.- Añadir matriculas por archivo");
+        System.out.println("3.- Añadir matricula a mano");
+        System.out.println("0.- Volver");
+        int opcion = teclado.nextInt();
+        teclado.nextLine();
+        return opcion;
+    }
+
 }
