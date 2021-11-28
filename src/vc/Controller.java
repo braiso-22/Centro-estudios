@@ -80,13 +80,13 @@ public class Controller {
                         break;
                     default:
                         v.showMessage("opcion no valida");
-                        opcion2=0;
+                        opcion2 = 0;
                         break;
 
                 }
                 mySQLFactory.releaseConnection(conn);
                 v.showMessage(output);
-            } while (opcion2 != 0 && opcion!=0);
+            } while (opcion2 != 0 && opcion != 0);
         } while (opcion != 0);
 
     }
@@ -210,6 +210,27 @@ public class Controller {
                 id = v.showMessageString("Introduce el archivo");
                 profesorDAO.insertUsingFile(id, conn);
                 break;
+            case 10:
+                String dni,
+                 nombre,
+                 apellido,
+                 departamento;
+                float sueldo;
+
+                dni = v.showMessageString("Introduce el dni");
+                nombre = v.showMessageString("Introduce el nombre");
+                apellido = v.showMessageString("introduce los apellidos");
+                departamento = v.showMessageString("Introduce el departamento");
+
+                try {
+                    sueldo = Float.valueOf(v.showMessageString("Introduce el sueldo"));
+                    profesorDAO.add(new Profesor(dni, nombre, apellido, departamento, sueldo), conn);
+                } catch (NumberFormatException e) {
+                    System.out.println("No se pudo añadir el alumno" + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
             default:
 
         }

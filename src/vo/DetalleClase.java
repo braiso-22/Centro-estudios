@@ -77,4 +77,10 @@ public class DetalleClase {
         this.Alumno = Alumno;
     }
 
+    @Override
+    public String toString() {
+        return "Alumno:" + Alumno + ", Profesor:" + Profesor + ", Asignatura:" + Asignatura + "\n";
+    }
+
+    
 }

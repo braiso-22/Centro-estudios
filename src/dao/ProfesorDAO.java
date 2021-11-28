@@ -36,8 +36,8 @@ public class ProfesorDAO implements Dao {
         querys.add("select * from profesor where apellidos like ?;"); //3
         querys.add("select * from profesor where departamento = ?;"); //4
         querys.add("select * from profesor where sueldo > ?;"); //5
-        querys.add("select dni, nombre, apellidos, departamento, sueldo from alumno_con_asignatura " + "where asignatura=?;");//6
-        querys.add("select dni, nombre, apellidos, curso, fecha_nacimiento from alumno_con_profesor " + "where profesor=?;");//7
+        querys.add("select dni, nombre, apellidos, departamento, sueldo from profesor_con_asignatura where asignatura = ?;");//6
+        querys.add("select dni, nombre, apellidos, departamento, sueldo from profesor_con_alumno where alumno = ?;");//7
         querys.add("select * from alumno where fecha_nacimiento < DATE_SUB(now(),interval 18 YEAR);");// 8 alumnos mayores de edad
 
     }
@@ -55,9 +55,14 @@ public class ProfesorDAO implements Dao {
                 case GETBYDNI:
                 case GETBYNOMBRE:
                 case GETBYAPELLIDO:
+                case GETBYDEPARTAMENTO:
+                case GETBYASIGNATURA:
+                case GETBYALUMNO:
                     ps.setString(1, id);
                     break;
-
+                case GETBYSUELDO:
+                    ps.setDouble(1, Double.valueOf(id));
+                    break;
                 default:
                     break;
             }
@@ -122,6 +127,19 @@ public class ProfesorDAO implements Dao {
 
     @Override
     public void add(Object elemento, Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Profesor al = (Profesor) elemento;
+        try {
+            PreparedStatement ps = conn.prepareStatement(INSERT);
+            ps.setString(1, al.getDni());
+            ps.setString(2, al.getNombre());
+            ps.setString(3, al.getApellidos());
+            ps.setString(4, al.getDepartamento());
+            ps.setDouble(5, al.getSueldo());
+            ps.executeUpdate();
+        } catch (SQLException sqlE) {
+            System.out.println(sqlE.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
