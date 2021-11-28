@@ -39,15 +39,16 @@ public class View {
 
     public int menuAlumno() {
         System.out.println("Selecciona una opcion:");
-        System.out.println("1.- Ver todos los alumnos");
-        System.out.println("2.- Buscar alumno por DNI");
-        System.out.println("3.- Ver alumnos buscando por nombre");
-        System.out.println("4.- Ver alumnos buscando por apellido");
-        System.out.println("5.- Ver alumnos buscando por curso");
-        System.out.println("6.- Ver alumnos por año de nacimiento");
-        System.out.println("7.- Ver alumnos por asgnatura");
-        System.out.println("8.- Ver alumnos por profesor");
-        System.out.println("9.- Insertar alumnos por archivo");
+        System.out.println("01.- Ver todos los alumnos");
+        System.out.println("02.- Buscar alumno por DNI");
+        System.out.println("03.- Ver alumnos buscando por nombre");
+        System.out.println("04.- Ver alumnos buscando por apellido");
+        System.out.println("05.- Ver alumnos buscando por curso");
+        System.out.println("06.- Ver alumnos por año de nacimiento");
+        System.out.println("07.- Ver alumnos por asignatura");
+        System.out.println("08.- Ver alumnos por profesor");
+        System.out.println("09.- Insertar alumnos por archivo");
+        System.out.println("10.- Insetar alumno a mano");
         System.out.println("0.- Volver");
         int opcion = teclado.nextInt();
         teclado.nextLine();
@@ -69,5 +70,9 @@ public class View {
         int opcion = teclado.nextInt();
         teclado.nextLine();
         return opcion;
+    }
+    
+    public int menuAsignatura(){
+        System.out.println("Selecciona una opcion:");
     }
 }

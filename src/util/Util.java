@@ -10,7 +10,5 @@ package util;
  * @author brais.fernandezvazqu
  */
 public class Util {
-    public void toMayus(){
-        //TODO hacer un metodo para combertir la entrada de texto a mayusculas para evitar no encontrar por el case
-    }
+    
 }

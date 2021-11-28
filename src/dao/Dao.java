@@ -57,6 +57,6 @@ public interface Dao<T> {
      *
      * @param conn
      */
-    void updateView(Connection conn);
+    
 
 }

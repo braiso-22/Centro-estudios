@@ -32,10 +32,7 @@ public class DetalleClaseDAO implements Dao{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void updateView(Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public List getByProc(int query, String id, Connection conn) {

@@ -27,7 +27,7 @@ public class ProfesorDAO implements Dao {
     ArrayList<String> inserts = new ArrayList<>();
     ArrayList<String> procedures = new ArrayList<>();
 
-    public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3;
+    public final static int GETALL = 0, GETBYDNI = 1, GETBYNOMBRE = 2, GETBYAPELLIDO = 3, GETBYDEPARTAMENTO = 4, GETBYSUELDO = 5, GETBYASIGNATURA = 6, GETBYALUMNO= 7;
     public final static int INSERTBYFILE = 0;
 
     public ProfesorDAO() {
@@ -36,8 +36,8 @@ public class ProfesorDAO implements Dao {
         querys.add("select * from profesor where nombre = ?;"); //2
         querys.add("select * from profesor where apellidos like ?;"); //3
         querys.add("select * from profesor where departamento = ?;"); //4
-        querys.add("select * from profesor where sueldo= ?;"); //5
-        querys.add("select dni, nombre, apellidos, curso, fecha_nacimiento from alumno_con_asignatura " + "where asignatura=?;");//6
+        querys.add("select * from profesor where sueldo > ?;"); //5
+        querys.add("select dni, nombre, apellidos, departamento, sueldo from alumno_con_asignatura " + "where asignatura=?;");//6
         querys.add("select dni, nombre, apellidos, curso, fecha_nacimiento from alumno_con_profesor " + "where profesor=?;");//7
         querys.add("select * from alumno where fecha_nacimiento < DATE_SUB(now(),interval 18 YEAR);");// 8 alumnos mayores de edad
 
@@ -124,11 +124,6 @@ public class ProfesorDAO implements Dao {
 
     @Override
     public void add(Object elemento, Connection conn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void updateView(Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
