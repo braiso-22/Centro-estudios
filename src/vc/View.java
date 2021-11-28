@@ -34,9 +34,7 @@ public class View {
         System.out.println("4.- Matriculas");
         System.out.println("0.- Salir");
 
-        int opcion = teclado.nextInt();
-        teclado.nextLine();
-        return opcion;
+        return leerInt();
     }
 
     public int menuAlumno() {
@@ -52,9 +50,7 @@ public class View {
         System.out.println("09.- Insertar alumnos por archivo");
         System.out.println("10.- Insetar alumno a mano");
         System.out.println("0.- Volver");
-        int opcion = teclado.nextInt();
-        teclado.nextLine();
-        return opcion;
+        return leerInt();
     }
 
     public int menuProfesor() {
@@ -71,9 +67,7 @@ public class View {
         System.out.println("09.- Insertar profesores por archivo");
         System.out.println("10.-Insertar profesores a mano");
         System.out.println("0.- Volver");
-        int opcion = teclado.nextInt();
-        teclado.nextLine();
-        return opcion;
+        return leerInt();
     }
 
     public int menuAsignatura() {
@@ -86,9 +80,7 @@ public class View {
         System.out.println("6.- Insertar asignaturas por archivo");
         System.out.println("7.- Insertar asignaturas a mano");
         System.out.println("0.- Volver");
-        int opcion = teclado.nextInt();
-        teclado.nextLine();
-        return opcion;
+        return leerInt();
     }
 
     public int menuMatriculas() {
@@ -97,9 +89,19 @@ public class View {
         System.out.println("2.- Añadir matriculas por archivo");
         System.out.println("3.- Añadir matricula a mano");
         System.out.println("0.- Volver");
-        int opcion = teclado.nextInt();
-        teclado.nextLine();
-        return opcion;
+        return leerInt();
+    }
+
+    private int leerInt() {
+        try {
+            int opcion = teclado.nextInt();
+            teclado.nextLine();
+            return opcion;
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
+            teclado = new Scanner(System.in);
+        }
+        return -1;
     }
 
 }

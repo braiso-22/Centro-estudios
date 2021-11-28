@@ -46,47 +46,54 @@ public class Controller {
         int opcion = -1;
         Connection conn = null;
         do {
+            
             int opcion2 = -1;
             String output;
             opcion = v.menuTablas();
             do {
 
-                output = new String();
+                output = new String("");
                 try {
                     conn = mySQLFactory.getConnection();
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
-                switch (opcion) {
-                    case 1:
-                        opcion2 = v.menuAlumno();
-                        output += alumno(opcion2, conn);
-                        break;
-                    case 2:
-                        opcion2 = v.menuProfesor();
-                        output += profesor(opcion2, conn);
-                        break;
-                    case 3:
-                        opcion2 = v.menuAsignatura();
-                        output += asignatura(opcion2, conn);
-                        break;
-                    case 4:
-                        opcion2 = v.menuMatriculas();
-                        output += matricula(opcion2, conn);
-                        break;
+                try {
+                    switch (opcion) {
+                        case 1:
+                            opcion2 = v.menuAlumno();
+                            output += alumno(opcion2, conn);
+                            break;
+                        case 2:
+                            opcion2 = v.menuProfesor();
+                            output += profesor(opcion2, conn);
+                            break;
+                        case 3:
+                            opcion2 = v.menuAsignatura();
+                            output += asignatura(opcion2, conn);
+                            break;
+                        case 4:
+                            opcion2 = v.menuMatriculas();
+                            output += matricula(opcion2, conn);
+                            break;
 
-                    case 0:
-                        v.showMessage("Saliendo...");
-                        break;
-                    default:
-                        v.showMessage("opcion no valida");
-                        opcion2 = 0;
-                        break;
+                        case 0:
+                            v.showMessage("Saliendo...");
+                            break;
+                        default:
+                            v.showMessage("opcion no valida");
+                            opcion2 = 0;
+                            break;
 
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error " + e.getMessage());
+                    opcion2 = 0;
                 }
                 mySQLFactory.releaseConnection(conn);
                 v.showMessage(output);
             } while (opcion2 != 0 && opcion != 0);
+            
         } while (opcion != 0);
 
     }
@@ -162,10 +169,15 @@ public class Controller {
     private static String proccesAlumnos(String mensaje, int num, Connection conn) {
         String id, output = "";
         id = v.showMessageString(mensaje);
-        alumnos = alumnoDAO.get(num, id, conn);
-        for (Alumno al : alumnos) {
-            output += al.toString();
+        try {
+            alumnos = alumnoDAO.get(num, id, conn);
+            for (Alumno al : alumnos) {
+                output += al.toString();
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
         }
+
         return output;
     }
 
@@ -198,8 +210,12 @@ public class Controller {
                 output = processProfesores("Introduce el departamento", ProfesorDAO.GETBYDEPARTAMENTO, conn);
                 break;
             case 6:
+                try {
                 output = processProfesores("Introduce el sueldo", ProfesorDAO.GETBYSUELDO, conn);
-                break;
+            } catch (Exception e) {
+                System.out.println("Error " + e.getMessage());
+            }
+            break;
             case 7:
                 output = processProfesores("Introduce la asignatura", ProfesorDAO.GETBYASIGNATURA, conn);
                 break;
@@ -259,16 +275,16 @@ public class Controller {
                 }
                 break;
             case 2:
-                proccesAsignatura("Escribe el codigo", AsignaturaDAO.GETBYCODIGO, conn);
+                output = proccesAsignatura("Escribe el codigo", AsignaturaDAO.GETBYCODIGO, conn);
                 break;
             case 3:
-                proccesAsignatura("Escribe el nombre", AsignaturaDAO.GETBYNOMBRE, conn);
+                output = proccesAsignatura("Escribe el nombre", AsignaturaDAO.GETBYNOMBRE, conn);
                 break;
             case 4:
-                proccesAsignatura("Escribe el dni del alumno", AsignaturaDAO.GETBYALUMNO, conn);
+                output = proccesAsignatura("Escribe el dni del alumno", AsignaturaDAO.GETBYALUMNO, conn);
                 break;
             case 5:
-                proccesAsignatura("Escribe el dni del profesor", AsignaturaDAO.GETBYPROFESOR, conn);
+                output = proccesAsignatura("Escribe el dni del profesor", AsignaturaDAO.GETBYPROFESOR, conn);
                 break;
             case 6:
                 id = v.showMessageString("Introduce el archivo");
